@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Putidms.Domain.Models.TrainingRecord>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h4><span class="glyphicon glyphicon-th-list"></span> 培训记录 - @string.Format("{0}({1})", @ViewBag.Counselor.UserName, @ViewBag.Counselor.ReligiousName)</h4>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-info" href="@Url.Action("add",new { counselorId = @ViewBag.Counselor.Id })" role="button">
+            <span class="glyphicon glyphicon-plus"></span> 新增培训记录
+        </a>
+    </div>
+</div>
+<table class="table table-condensed table-striped table-hover table-bordered">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>        
+        <th>操作</th>
+    </tr>
+
+@foreach (var item in Model.ToList()) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>        
+        <td>
+            <a href="@Url.Action("edit", new { id = item.Id })" title="编辑" class="btn btn-xs btn-default">
+                <span class="glyphicon glyphicon-edit"></span>编辑
+            </a>
+            <a href="javascript:void(0);" title="删除" class="btn btn-xs btn-default"
+               onclick="confirm_delete('@Url.Action("delete", new { id = item.Id })');">
+                <span class="glyphicon glyphicon-trash"></span>删除
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("返回辅导员列表", "Index", "counselor")
+</div>
+<hr />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryconfirm")
+    @Scripts.Render("~/bundles/app")
+}

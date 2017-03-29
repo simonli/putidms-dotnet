@@ -1,0 +1,87 @@
+﻿@model Putidms.Models.KlassRecordViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@*<h2>新增编辑</h2>*@
+
+@using (Html.BeginForm("edit", "klassrecord")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4><span class="glyphicon glyphicon-th-list"></span> 带班记录 - @string.Format("{0}({1})", @ViewBag.Counselor.UserName, @ViewBag.Counselor.ReligiousName)</h4>
+        <hr />
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("InitialKlassId", Model.KlassId)
+        @{ int counselorId = ViewBag.Counselor.Id; }
+        @Html.Hidden("CounselorId",counselorId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control form-datetime", placeholder = "格式： 2017-01-16", @type = "text" } })
+                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control form-datetime", placeholder = "格式： 2017-01-29", @type = "text" } })
+                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.DivisionId, (IEnumerable<SelectListItem>)ViewBag.Divisions, "-- 请选择修学处 --", new { @class = "form-control", @onChange = "GetDepartmentList()" })
+                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Departments, "-- 请选择修学点 --", new { @class = "form-control", @onChange = "GetKlassList()" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KlassId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.KlassId, (IEnumerable<SelectListItem>)ViewBag.Klasses, "-- 请选择修学点 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.KlassId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DutyId, (IEnumerable<SelectListItem>)ViewBag.Duties, "-- 请选择岗位 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DutyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="提交" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index", new { counselorId = Model.CounselorId })
+</div>
+
+<hr/>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/datepicker")
+}

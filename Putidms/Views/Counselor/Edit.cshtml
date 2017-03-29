@@ -1,0 +1,120 @@
+﻿@model Putidms.Models.CounselorViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("edit", "counselor"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4><span class="glyphicon glyphicon-th-list"></span> 辅导员维护</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("InitialUserName", Model.UserName)
+        @Html.Hidden("InitialEmail", Model.Email)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReligiousName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReligiousName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReligiousName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.Sex, 1) 男
+                @Html.RadioButtonFor(model => model.Sex, 0) 女
+                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control form-datetime", placeholder = "格式： 1980-10-29", @type = "text" } })
+                @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DivisionId, (IEnumerable<SelectListItem>)ViewBag.Divisions, "-- 请选择修学处 --", new { @class = "form-control", @onChange = "GetDepartmentList()" })
+                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Departments, "-- 请选择修学点 --", new { @class = "form-control", @onChange = "GetKlassList()" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KlassId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.KlassId, (IEnumerable<SelectListItem>)ViewBag.Klasses, "-- 请选择班级 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.KlassId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DutyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DutyId, (IEnumerable<SelectListItem>)ViewBag.Duties, "-- 请选择岗位 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DutyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="提交" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "index")
+</div>
+
+<hr/>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/datepicker")
+}
+
+

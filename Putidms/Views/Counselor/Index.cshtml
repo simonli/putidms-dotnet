@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Putidms.Domain.Models.Counselor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>辅导员列表</h2>*@
+
+<div class="row" style="margin-bottom:10px;">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-5">
+            @Html.TextBox("searchString", "", new { @class = "form-control", placeholder = "姓名、法名、班级、修学点、修学处、岗位、手机号、Email" , style = "width:420px; max-width:500px;" })
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> 查找
+            </button>
+        </div>
+    }
+    <div class="col-md-2">
+        <a class="btn btn-info" href="@Url.Action("add")" role="button">
+            <span class="glyphicon glyphicon-plus"></span> 新增辅导员
+        </a>
+    </div>
+</div>
+<table class="table table-condensed table-striped table-hover table-bordered">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReligiousName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>岗位</th>
+        <th>班级</th>
+        <th>修学点</th>
+        <th>修学处</th>
+        <th>带班记录</th>
+        <th>培训记录</th>
+        <th>考核记录</th>
+        <th>操作</th>
+    </tr>
+
+    @foreach (var item in Model.ToList())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReligiousName)
+            </td>
+            <td>
+                @(item.Sex == 0 ? "女" : "男")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duty.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klass.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klass.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klass.Department.Division.Name)
+            </td>
+            <td style="text-align:center;">
+                <a href="@Url.Action("add","klassrecord",new { counselorId = item.Id })" title="添加带班记录">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <a href="@Url.Action("index","klassrecord",new { counselorId = item.Id })" title="查看带班记录">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td style="text-align:center;">
+                <a href="@Url.Action("add","trainingrecord",new { counselorId = item.Id })" title="添加培训记录">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <a href="@Url.Action("index","trainingrecord",new { counselorId = item.Id })" title="查看培训记录">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td style="text-align:center;">
+                <a href="@Url.Action("add","evaluationrecord",new { counselorId = item.Id })" title="添加考核记录">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <a href="@Url.Action("index","evaluationrecord",new { counselorId = item.Id })" title="查看考核记录">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("edit", new { id = item.Id })" title="编辑" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-edit"></span>编辑
+                </a>
+                <a href="javascript:void(0);" title="删除" class="btn btn-xs btn-default"
+                   onclick="confirm_delete('@Url.Action("delete", new { id = item.Id })');">
+                    <span class="glyphicon glyphicon-trash"></span>删除
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryconfirm")
+    @Scripts.Render("~/bundles/app")
+}

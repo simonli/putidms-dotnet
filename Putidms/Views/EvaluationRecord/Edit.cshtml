@@ -1,0 +1,59 @@
+﻿@model Putidms.Models.EvaluationRecordViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("edit", "evaluationrecord"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4><span class="glyphicon glyphicon-th-list"></span> 考核记录 - @string.Format("{0}({1})", @Model.Counselor.UserName, @Model.Counselor.ReligiousName)</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("CounselorId", Model.Counselor.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShiftDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShiftDate, new { htmlAttributes = new { @class = "form-control form-datetime", placeholder = "格式： 2017-01-16", @type = "text" } })
+                @Html.ValidationMessageFor(model => model.ShiftDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="提交" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index", new { counselorId = Model.Counselor.Id })
+</div>
+<hr />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/datepicker")
+}

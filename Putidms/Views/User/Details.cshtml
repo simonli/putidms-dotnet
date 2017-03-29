@@ -1,0 +1,104 @@
+﻿@model Putidms.Domain.Models.User
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h4><span class="glyphicon glyphicon-th-list"></span> 用户详情</h4>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLoginIP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoginIP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLoginTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoginTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoginCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoginCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DivisionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DivisionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "edituserinfo", new { id = Model.Id })
+</p>

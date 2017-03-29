@@ -1,0 +1,114 @@
+﻿@model Putidms.Models.UserViewModel
+
+@{
+    ViewBag.Title = "用户管理";
+}
+
+@using (Html.BeginForm("Edit", "User"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4><span class="glyphicon glyphicon-th-list"></span> 用户维护</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("InitialUserName", Model.UserName)
+        @Html.Hidden("InitialEmail", Model.Email)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "用户名用于系统登录" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "姓名或者法名" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.Sex, 1) 男
+                @Html.RadioButtonFor(model => model.Sex, 0) 女
+                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoleType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RoleType, (IEnumerable<SelectListItem>)ViewBag.Roles, "-- 请选择角色权限 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DivisionId, (IEnumerable<SelectListItem>)ViewBag.Divisions, "-- 请选择修学处 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Departments, "-- 请选择修学点 --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PermissionInType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.PermissionInType, 1) 管理所在修学处的辅导员
+                @Html.RadioButtonFor(model => model.PermissionInType, 2) 仅能管理所在修学点的辅导员
+                @Html.ValidationMessageFor(model => model.PermissionInType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="提交" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("返回列表", "index")
+</div>
+<hr />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

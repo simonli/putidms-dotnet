@@ -1,0 +1,23 @@
+﻿@model Putidms.Domain.Models.User
+@{
+    if (Model != null)
+    {
+        if (!string.IsNullOrEmpty(Model.UserName))
+        {
+            <li><a href="@Url.Action("details","user",new { Id = Model.Id })">欢迎您，@Model.Name</a></li>
+            <li>@Html.ActionLink("登出", "logout", "user")</li>
+        }
+
+    }
+
+    else
+    {
+        <li>@Html.ActionLink("登录", "login", "user")</li>
+    }
+}
+
+
+
+
+
+
